@@ -58,8 +58,8 @@ Required settings:
 
 1. Edit a dashboard → **Add widget** → select **ConfBridge Monitor**
 2. Fill in:
-   - **Asterisk Host (browser)** — address the browser uses for WebSocket connections to Asterisk
-   - **Asterisk Host (server-side proxy)** — address the Zabbix server uses for REST calls to Asterisk via PHP. Leave blank if the same as the browser-facing address (typical LAN setup)
+   - **Asterisk Host (from Browser)** — address the browser uses for WebSocket connections to Asterisk
+   - **Asterisk Host (from Zabbix)** — address the Zabbix server uses for REST calls to Asterisk via PHP. Leave blank if the same as the browser-facing address (typical LAN setup)
    - **ARI Port** — default `8088`
    - **ARI Username / Password** — credentials of the ARI user
    - **Bridge ID** — the ConfBridge name (e.g. `8000`)
@@ -113,10 +113,10 @@ Because the browser and the Zabbix server may reach Asterisk at different addres
 
 | Field | Used by | Purpose |
 |-------|---------|---------|
-| **Asterisk Host (browser)** | Browser (JavaScript) | WebSocket URLs for ARI events and media |
-| **Asterisk Host (server-side proxy)** | Zabbix Server (PHP curl) | REST calls forwarded by AriProxy |
+| **Asterisk Host (from Browser)** | Browser (JavaScript) | WebSocket URLs for ARI events and media |
+| **Asterisk Host (from Zabbix)** | Zabbix Server (PHP curl) | REST calls forwarded by AriProxy |
 
-Leave **Asterisk Host (server-side proxy)** blank when both addresses are the same — the common case on a flat LAN.
+Leave **Asterisk Host (from Zabbix)** blank when both addresses are the same — the common case on a flat LAN.
 
 ### Required network connectivity
 

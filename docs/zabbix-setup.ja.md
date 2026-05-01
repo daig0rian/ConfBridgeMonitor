@@ -74,11 +74,11 @@ UPDATE module SET relative_path='modules/cbm_monitor' WHERE id='confbridge_monit
 
 | 項目 | 説明 | デフォルト |
 |------|------|-----------|
-| Asterisk Host (browser) | ブラウザが WebSocket 接続に使う Asterisk の IP アドレス | `10.0.0.1` |
-| Asterisk Host (server-side proxy) | Zabbix サーバの PHP が REST 呼び出しに使う Asterisk の IP アドレス。ブラウザから見たアドレスと同じ場合は空欄でよい | *(Asterisk Host と同じ)* |
+| Asterisk Host (from Browser) | ブラウザが WebSocket 接続に使う Asterisk の IP アドレス | `10.0.0.1` |
+| Asterisk Host (from Zabbix) | Zabbix サーバの PHP が REST 呼び出しに使う Asterisk の IP アドレス。ブラウザから見たアドレスと同じ場合は空欄でよい | *(from Browser と同じ)* |
 | ARI Port | ARI HTTP ポート番号 | `8088` |
-| ARI Username | ARI ユーザ名 | `admin` |
-| ARI Password | ARI パスワード | — |
+| ARI Username | Asterisk REST Interface に登録したユーザ名 | `MY_ARI_USERNAME` |
+| ARI Password | Asterisk REST Interface に登録したパスワード | `MY_ARI_PASSWORD` |
 | Bridge ID | 監視対象 ConfBridge 名 (例: `8000`) | `8000` |
 | Buffer (ms) | ジッタバッファサイズ。LAN は 50〜100ms、WAN は 200ms 推奨 | `100` |
 
@@ -89,7 +89,7 @@ UPDATE module SET relative_path='modules/cbm_monitor' WHERE id='confbridge_monit
 - **WebSocket（ARI events・Media）**: ブラウザが Asterisk に直接接続する
 - **REST（POST/DELETE）**: CORS 制限を回避するため、Zabbix サーバ上の PHP がブラウザの代わりに Asterisk を呼び出す
 
-したがって、NAT やリバースプロキシが介在して「ブラウザから見た Asterisk のアドレス」と「Zabbix サーバから見た Asterisk のアドレス」が異なる場合は、両フィールドに別々のアドレスを設定する必要がある。同一 LAN の典型的な構成では両者は同じなので、server-side proxy 欄は空欄でよい。
+したがって、NAT やリバースプロキシが介在して「ブラウザから見た Asterisk のアドレス」と「Zabbix サーバから見た Asterisk のアドレス」が異なる場合は、両フィールドに別々のアドレスを設定する必要がある。同一 LAN の典型的な構成では両者は同じなので、**Asterisk Host (from Zabbix)** 欄は空欄でよい。
 
 ---
 

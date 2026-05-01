@@ -14,12 +14,12 @@ class WidgetForm extends CWidgetForm {
 	public function addFields(): self {
 		return $this
 			->addField(
-				(new CWidgetFieldTextBox('asterisk_host', _('Asterisk Host (browser)')))
+				(new CWidgetFieldTextBox('asterisk_host', _('Asterisk Host (from Browser)')))
 					->setDefault('10.0.0.1')
 					->setFlags(CWidgetFieldTextBox::FLAG_NOT_EMPTY)
 			)
 			->addField(
-				(new CWidgetFieldTextBox('asterisk_host_server', _('Asterisk Host (server-side proxy)')))
+				(new CWidgetFieldTextBox('asterisk_host_server', _('Asterisk Host (from Zabbix)')))
 					->setDefault('')
 			)
 			->addField(
@@ -28,12 +28,12 @@ class WidgetForm extends CWidgetForm {
 			)
 			->addField(
 				(new CWidgetFieldTextBox('ari_user', _('ARI Username')))
-					->setDefault('admin')
+					->setDefault('MY_ARI_USERNAME')
 					->setFlags(CWidgetFieldTextBox::FLAG_NOT_EMPTY)
 			)
 			->addField(
 				(new CWidgetFieldTextBox('ari_password', _('ARI Password')))
-					->setDefault('')
+					->setDefault('MY_ARI_PASSWORD')
 			)
 			->addField(
 				(new CWidgetFieldTextBox('bridge_id', _('Bridge ID')))

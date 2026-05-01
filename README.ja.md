@@ -59,8 +59,8 @@ cp -r module/ /usr/share/zabbix/modules/cbm_monitor
 
 1. ダッシュボードを編集 → **Add widget** → **ConfBridge Monitor** を選択
 2. 設定を入力:
-   - **Asterisk Host (browser)** — ブラウザが WebSocket 接続に使う Asterisk の IP アドレス
-   - **Asterisk Host (server-side proxy)** — Zabbix サーバが REST 呼び出しに使う Asterisk の IP アドレス。同じアドレスの場合は空欄
+   - **Asterisk Host (from Browser)** — ブラウザが WebSocket 接続に使う Asterisk の IP アドレス
+   - **Asterisk Host (from Zabbix)** — Zabbix サーバが REST 呼び出しに使う Asterisk の IP アドレス。同じアドレスの場合は空欄
    - **ARI Port** — デフォルト `8088`
    - **ARI Username / Password** — ARI ユーザの認証情報
    - **Bridge ID** — ConfBridge 名（例: `8000`）
@@ -102,7 +102,7 @@ Content-Security-Policy: connect-src 'self' ws://192.168.x.x:8088;
 
 WebSocket はブラウザから Asterisk へ**直接**接続します。REST は CORS 制限により PHP プロキシ経由です。
 
-**Asterisk Host (browser)** と **Asterisk Host (server-side proxy)** が異なる値になるのは、NAT やリバースプロキシでブラウザと Zabbix サーバから見た Asterisk のアドレスが異なる場合です。
+**Asterisk Host (from Browser)** と **Asterisk Host (from Zabbix)** が異なる値になるのは、NAT やリバースプロキシでブラウザと Zabbix サーバから見た Asterisk のアドレスが異なる場合です。
 
 ### 必要な通信経路
 

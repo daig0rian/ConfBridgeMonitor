@@ -156,11 +156,11 @@ ConfBridgeMonitor/
 
 | フィールド | 型 | デフォルト | 説明 |
 |-----------|---|-----------|------|
-| `asterisk_host` | TextBox (必須) | — | ブラウザ → Asterisk WebSocket |
-| `asterisk_host_server` | TextBox (任意) | 空欄 | Zabbix PHP → Asterisk REST（空欄なら asterisk_host を使用）|
+| `asterisk_host` | TextBox (必須) | `10.0.0.1` | ブラウザ → Asterisk WebSocket ("from Browser") |
+| `asterisk_host_server` | TextBox (任意) | 空欄 | Zabbix PHP → Asterisk REST ("from Zabbix")（空欄なら asterisk_host を使用）|
 | `ari_port` | IntegerBox | 8088 | ARI ポート |
-| `ari_user` | TextBox (必須) | admin | ARI ユーザ名 |
-| `ari_password` | TextBox | — | ARI パスワード |
+| `ari_user` | TextBox (必須) | `MY_ARI_USERNAME` | ARI ユーザ名 |
+| `ari_password` | TextBox | `MY_ARI_PASSWORD` | ARI パスワード |
 | `bridge_id` | TextBox (必須) | 8000 | ConfBridge 名 |
 | `buffer_ms` | IntegerBox | 100 | ジッタバッファ (ms) |
 

@@ -74,11 +74,11 @@ UPDATE module SET relative_path='modules/cbm_monitor' WHERE id='confbridge_monit
 
 | Field | Description | Default |
 |-------|-------------|---------|
-| Asterisk Host (browser) | Address the browser uses for WebSocket connections to Asterisk | `10.0.0.1` |
-| Asterisk Host (server-side proxy) | Address the Zabbix server's PHP uses for REST calls to Asterisk. Leave blank if the same as the browser-facing address | *(same as browser)* |
+| Asterisk Host (from Browser) | Address the browser uses for WebSocket connections to Asterisk | `10.0.0.1` |
+| Asterisk Host (from Zabbix) | Address the Zabbix server's PHP uses for REST calls to Asterisk. Leave blank if the same as the browser-facing address | *(same as from Browser)* |
 | ARI Port | ARI HTTP port | `8088` |
-| ARI Username | ARI username | `admin` |
-| ARI Password | ARI password | — |
+| ARI Username | Username registered in Asterisk REST Interface | `MY_ARI_USERNAME` |
+| ARI Password | Password registered in Asterisk REST Interface | `MY_ARI_PASSWORD` |
 | Bridge ID | Name of the target ConfBridge (e.g. `8000`) | `8000` |
 | Buffer (ms) | Jitter buffer size. 50–100 ms for LAN, 200 ms for WAN | `100` |
 
@@ -89,7 +89,7 @@ There are two separate network paths from the widget to Asterisk:
 - **WebSocket (ARI events + Media)**: the browser connects directly to Asterisk — no proxy possible
 - **REST (POST/DELETE)**: routed through the Zabbix server's PHP to avoid browser CORS restrictions
 
-If NAT or a reverse proxy sits between the browser and Asterisk, the address the browser uses may differ from the address the Zabbix server uses. Set each field to the appropriate address for its network path. In a flat LAN where all three parties share the same subnet, both addresses are identical — leave **Asterisk Host (server-side proxy)** blank.
+If NAT or a reverse proxy sits between the browser and Asterisk, the address the browser uses may differ from the address the Zabbix server uses. Set each field to the appropriate address for its network path. In a flat LAN where all three parties share the same subnet, both addresses are identical — leave **Asterisk Host (from Zabbix)** blank.
 
 ---
 

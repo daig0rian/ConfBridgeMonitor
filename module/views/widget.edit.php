@@ -15,7 +15,7 @@ $form
 	)
 	->addField(
 		(new CWidgetFieldTextBoxView($data['fields']['asterisk_host_server']))
-			->setPlaceholder(_('same as Asterisk Host (browser)'))
+			->setPlaceholder(_('Optional. Set if Zabbix server uses a different address.'))
 	)
 	->addField(
 		new CWidgetFieldIntegerBoxView($data['fields']['ari_port'])
