@@ -64,6 +64,7 @@ Submit → Apply Changes を実行する。
 ```bash
 sudo asterisk -rx 'ari show status'
 # 期待値:
+# Enabled: Yes
 # Allowed Origins: 192.168.x.x:80
 ```
 

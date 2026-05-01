@@ -64,6 +64,7 @@ Click **Submit** then **Apply Changes**.
 ```bash
 sudo asterisk -rx 'ari show status'
 # Expected:
+# Enabled: Yes
 # Allowed Origins: 192.168.x.x:80
 ```
 
