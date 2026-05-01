@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConfBridgeMonitor — Phase 2 PoC</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 520px;
+      margin: 48px auto;
+      padding: 0 20px;
+      color: #222;
+    }
+    h1 { font-size: 1.15em; margin: 0 0 24px; color: #1a1a1a; }
+    .row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+    label { width: 110px; font-size: 0.88em; color: #555; flex-shrink: 0; }
+    input {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 0.92em;
+      width: 140px;
+    }
+    .buttons { display: flex; gap: 10px; margin-top: 20px; }
+    button {
+      padding: 9px 26px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95em;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    button:disabled { opacity: 0.4; cursor: default; }
+    #btn-listen { background: #1976d2; color: #fff; }
+    #btn-stop   { background: #d32f2f; color: #fff; display: none; }
+    #status-box {
+      margin-top: 20px;
+      padding: 12px 14px;
+      background: #f4f6f8;
+      border-left: 3px solid #1976d2;
+      border-radius: 4px;
+      font-size: 0.875em;
+      min-height: 42px;
+      line-height: 1.5;
+      word-break: break-all;
+    }
+    #status-box.error { border-color: #d32f2f; background: #fff4f4; }
+    small { display: block; margin-top: 18px; font-size: 0.78em; color: #888; }
+  </style>
+</head>
+<body>
+
+<h1>ConfBridgeMonitor — Phase 2 PoC</h1>
+
+<div class="row">
+  <label>Asterisk IP</label>
+  <input id="host" value="192.168.11.31">
+</div>
+<div class="row">
+  <label>ARI Port</label>
+  <input id="port" value="8088" style="width:80px">
+</div>
+<div class="row">
+  <label>Bridge ID</label>
+  <input id="bridge" value="8000" style="width:80px">
+</div>
+<div class="row">
+  <label>Jitter (ms)</label>
+  <input id="jitter" value="100" style="width:80px">
+</div>
+
+<div class="buttons">
+  <button id="btn-listen">▶ Listen</button>
+  <button id="btn-stop">■ Stop</button>
+</div>
+
+<div id="status-box">準備完了</div>
+
+<small>
+  ※ Asterisk / Zabbix ともに <strong>HTTP (平文)</strong> 環境を想定しています。<br>
+  ※ このページは <code>python serve.py</code> で起動したサーバーから開いてください。
+</small>
+
+<script type="module">
+import { ConfBridgePlayer } from "./confbridge-poc.js";
+
+const statusBox = document.getElementById("status-box");
+const btnListen = document.getElementById("btn-listen");
+const btnStop   = document.getElementById("btn-stop");
+
+function setStatus(msg, isError = false) {
+  statusBox.textContent = msg;
+  statusBox.className   = isError ? "error" : "";
+}
+
+// ConfBridgePlayer 設定を UI 入力から動的に上書き
+// (confbridge-poc.js 内の定数はデフォルト値)
+const player = new ConfBridgePlayer({
+  onStatus: setStatus,
+});
+
+btnListen.addEventListener("click", async () => {
+  // AudioContext.resume() はユーザジェスチャ内で呼ぶ必要あり
+  btnListen.disabled        = true;
+  btnStop.style.display     = "inline-block";
+  statusBox.className       = "";
+
+  try {
+    await player.start(document.getElementById("bridge").value.trim());
+  } catch (e) {
+    setStatus("エラー: " + e.message, true);
+    console.error(e);
+    btnListen.disabled    = false;
+    btnStop.style.display = "none";
+  }
+});
+
+btnStop.addEventListener("click", async () => {
+  btnStop.disabled = true;
+  await player.stop();
+  btnListen.disabled    = false;
+  btnStop.style.display = "none";
+  btnStop.disabled      = false;
+});
+</script>
+
+</body>
+</html>

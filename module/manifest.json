@@ -1,0 +1,39 @@
+{
+	"manifest_version": 2.0,
+	"id": "confbridge_monitor",
+	"type": "widget",
+	"name": "ConfBridge Monitor",
+	"namespace": "ConfBridgeMonitor",
+	"version": "1.0",
+	"author": "daig0rian",
+	"description": "Listen to Asterisk ConfBridge audio directly in your Zabbix dashboard — no SIP client required.",
+	"url": "https://github.com/daig0rian/ConfBridgeMonitor",
+	"widget": {
+		"name": "ConfBridge Monitor",
+		"size": {
+			"width": 12,
+			"height": 2
+		},
+		"js_class": "CWidgetConfBridgeMonitor",
+		"refresh_rate": 0
+	},
+	"actions": {
+		"widget.confbridge_monitor.view": {
+			"class": "WidgetView"
+		},
+		"widget.confbridge_monitor.proxy": {
+			"class": "AriProxy",
+			"layout": "layout.json"
+		}
+	},
+	"assets": {
+		"js": [
+			"opus-decoder.bundle.js",
+			"cbm-player.js",
+			"class.widget.js"
+		],
+		"css": [
+			"widget.css"
+		]
+	}
+}

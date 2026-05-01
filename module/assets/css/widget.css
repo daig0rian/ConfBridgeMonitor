@@ -1,0 +1,29 @@
+.cbm-player {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 8px;
+}
+
+.cbm-inner {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.cbm-controls {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.cbm-status {
+	margin-top: 6px;
+	font-size: 0.875em;
+}
+
+.cbm-status-error {
+	color: #e45959;
+}
