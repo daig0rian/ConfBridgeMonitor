@@ -52,11 +52,11 @@ ARI を有効化し、外部オリジンからの WebSocket 接続を許可す�
 | 項目 | 変更前 | 変更後 |
 |---|---|---|
 | Enable the Asterisk REST Interface | `No` | `Yes` |
-| Allowed Origins | `localhost:8088` | `http://192.168.x.x:80` |
+| Allowed Origins | `localhost:8088` | `192.168.x.x:80` |
 | Pretty Print JSON Responses | `No` | `No`(変更不要) |
 | Web Socket Write Timeout | `100` | `100`(変更不要) |
 
-`192.168.x.x` は **ブラウザから見た** Zabbix サーバの IP アドレス（またはホスト名）に置き換えること。Zabbix が標準以外のポートで動いている場合はポートも含める（例: `http://192.168.x.x:8080`）。複数オリジンはカンマ区切りで列挙できる。
+`192.168.x.x` は **ブラウザから見た** Zabbix サーバの IP アドレス（またはホスト名）に置き換えること。Zabbix が標準以外のポートで動いている場合はポートも含める（例: `192.168.x.x:8080`）。複数オリジンはカンマ区切りで列挙できる。
 
 Submit → Apply Changes を実行する。
 
@@ -166,7 +166,7 @@ GUI で設定できない項目を追加する場合は `*_custom.conf` を使�
 ## 設定完了チェックリスト
 
 - [ ] `ss -tlnp | grep 8088` で `0.0.0.0:8088` がリスン中
-- [ ] `sudo asterisk -rx 'ari show status'` で `Allowed Origins` が Zabbix サーバのオリジン（例: `192.168.x.x:80`）になっている
+- [ ] `sudo asterisk -rx 'ari show status'` で `Allowed Origins: 192.168.x.x:80` になっている
 - [ ] ARI ユーザが `read_only=no` で作成済み
 - [ ] `confbridge list` でモニタ対象の Bridge が確認できる
 - [ ] `curl http://192.168.x.x:8088/ari/asterisk/info` でレスポンス確認

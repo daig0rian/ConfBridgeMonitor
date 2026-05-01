@@ -52,11 +52,11 @@ Enable ARI and allow WebSocket connections from external origins.
 | Setting | Before | After |
 |---------|--------|-------|
 | Enable the Asterisk REST Interface | `No` | `Yes` |
-| Allowed Origins | `localhost:8088` | `http://192.168.x.x:80` |
+| Allowed Origins | `localhost:8088` | `192.168.x.x:80` |
 | Pretty Print JSON Responses | `No` | `No` (no change) |
 | Web Socket Write Timeout | `100` | `100` (no change) |
 
-Replace `192.168.x.x` with the IP address (or hostname) of your Zabbix server **as seen by the browser**. If Zabbix is on a non-standard port, append it (e.g. `http://192.168.x.x:8080`). Multiple origins can be separated by commas.
+Replace `192.168.x.x` with the IP address (or hostname) of your Zabbix server **as seen by the browser**. If Zabbix is on a non-standard port, append it (e.g. `192.168.x.x:8080`). Multiple origins can be separated by commas.
 
 Click **Submit** then **Apply Changes**.
 
@@ -165,7 +165,7 @@ These files are not overwritten by FreePBX.
 ## Setup checklist
 
 - [ ] `ss -tlnp | grep 8088` shows `0.0.0.0:8088` listening
-- [ ] `sudo asterisk -rx 'ari show status'` shows `Allowed Origins` set to your Zabbix server's origin (e.g. `192.168.x.x:80`)
+- [ ] `sudo asterisk -rx 'ari show status'` shows `Allowed Origins: 192.168.x.x:80`
 - [ ] ARI user created with `read_only=no`
 - [ ] Target bridge visible in `confbridge list`
 - [ ] `curl http://192.168.x.x:8088/ari/asterisk/info` returns a JSON response
