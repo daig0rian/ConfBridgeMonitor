@@ -52,25 +52,29 @@ Enable ARI and allow WebSocket connections from external origins.
 | Setting | Before | After |
 |---------|--------|-------|
 | Enable the Asterisk REST Interface | `No` | `Yes` |
-| Allowed Origins | `localhost:8088` | `*` |
+| Allowed Origins | `localhost:8088` | `http://192.168.x.x:80` |
 | Pretty Print JSON Responses | `No` | `No` (no change) |
 | Web Socket Write Timeout | `100` | `100` (no change) |
+
+Replace `192.168.x.x` with the IP address (or hostname) of your Zabbix server **as seen by the browser**. If Zabbix is on a non-standard port, append it (e.g. `http://192.168.x.x:8080`). Multiple origins can be separated by commas.
 
 Click **Submit** then **Apply Changes**.
 
 ### Verify
 ```bash
-grep -E "enabled|allowed_origins" /etc/asterisk/ari_general_additional.conf
+sudo asterisk -rx 'ari show status'
 # Expected:
-# enabled=yes
-# allowed_origins=*
+# Allowed Origins: 192.168.x.x:80
 ```
 
 ### Generated file
 Settings are written to `/etc/asterisk/ari_general_additional.conf` (auto-generated — do not edit directly).
 
-### Production note
-`allowed_origins=*` is suitable for development and internal use. For production, restrict to your Zabbix server's origin (e.g. `http://192.168.x.x`).
+### Why restrict Allowed Origins
+
+`allowed_origins` is checked against the `Origin` header that the browser sends when opening a WebSocket connection to Asterisk. Restricting it to the Zabbix server's origin means only browsers loading the Zabbix page can establish a WebSocket to ARI — any other origin is rejected by Asterisk.
+
+Note: server-side PHP proxy calls (Zabbix → Asterisk via curl) do not send an `Origin` header and are not affected by this setting.
 
 ---
 
@@ -161,7 +165,7 @@ These files are not overwritten by FreePBX.
 ## Setup checklist
 
 - [ ] `ss -tlnp | grep 8088` shows `0.0.0.0:8088` listening
-- [ ] `ari_general_additional.conf` has `enabled=yes` and `allowed_origins=*` (or your Zabbix origin)
+- [ ] `sudo asterisk -rx 'ari show status'` shows `Allowed Origins` set to your Zabbix server's origin (e.g. `192.168.x.x:80`)
 - [ ] ARI user created with `read_only=no`
 - [ ] Target bridge visible in `confbridge list`
 - [ ] `curl http://192.168.x.x:8088/ari/asterisk/info` returns a JSON response

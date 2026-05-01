@@ -52,25 +52,29 @@ ARI を有効化し、外部オリジンからの WebSocket 接続を許可す�
 | 項目 | 変更前 | 変更後 |
 |---|---|---|
 | Enable the Asterisk REST Interface | `No` | `Yes` |
-| Allowed Origins | `localhost:8088` | `*` |
+| Allowed Origins | `localhost:8088` | `http://192.168.x.x:80` |
 | Pretty Print JSON Responses | `No` | `No`(変更不要) |
 | Web Socket Write Timeout | `100` | `100`(変更不要) |
+
+`192.168.x.x` は **ブラウザから見た** Zabbix サーバの IP アドレス（またはホスト名）に置き換えること。Zabbix が標準以外のポートで動いている場合はポートも含める（例: `http://192.168.x.x:8080`）。複数オリジンはカンマ区切りで列挙できる。
 
 Submit → Apply Changes を実行する。
 
 ### 確認
 ```bash
-grep -E "enabled|allowed_origins" /etc/asterisk/ari_general_additional.conf
+sudo asterisk -rx 'ari show status'
 # 期待値:
-# enabled=yes
-# allowed_origins=*
+# Allowed Origins: 192.168.x.x:80
 ```
 
 ### 生成されるファイル
 `/etc/asterisk/ari_general_additional.conf` に反映される(自動生成・直接編集禁止)。
 
-### 本番環境での注意
-`allowed_origins=*` は開発・PoC 用。本番では Zabbix サーバのオリジン(例: `http://192.168.x.x`)に限定すること。
+### Allowed Origins を絞る理由
+
+`allowed_origins` はブラウザが WebSocket 接続時に送る `Origin` ヘッダと照合される。Zabbix サーバのオリジンのみを許可することで、Zabbix ページを開いているブラウザ以外からの ARI WebSocket 接続を Asterisk が拒否できる。
+
+なお、PHP プロキシ（Zabbix サーバ → Asterisk の curl）はサーバ間通信のため `Origin` ヘッダを送らず、この設定の影響を受けない。
 
 ---
 
@@ -162,7 +166,7 @@ GUI で設定できない項目を追加する場合は `*_custom.conf` を使�
 ## 設定完了チェックリスト
 
 - [ ] `ss -tlnp | grep 8088` で `0.0.0.0:8088` がリスン中
-- [ ] `ari_general_additional.conf` で `enabled=yes`、`allowed_origins=*`（または Zabbix オリジン）
+- [ ] `sudo asterisk -rx 'ari show status'` で `Allowed Origins` が Zabbix サーバのオリジン（例: `192.168.x.x:80`）になっている
 - [ ] ARI ユーザが `read_only=no` で作成済み
 - [ ] `confbridge list` でモニタ対象の Bridge が確認できる
 - [ ] `curl http://192.168.x.x:8088/ari/asterisk/info` でレスポンス確認
