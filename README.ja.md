@@ -4,7 +4,7 @@
 
 Asterisk ConfBridge の音声を Zabbix ダッシュボード上でブラウザ再生できるカスタムウィジェット。SIP クライアント・WebRTC スタック・追加ソフトウェアは不要。
 
-![ConfBridge Monitor ウィジェット](docs/screenshot.png)
+![ConfBridge Monitor ウィジェット](docs/screenshot-player.png)
 
 ## 概要
 
@@ -56,6 +56,8 @@ cp -r module/ /usr/share/zabbix/modules/cbm_monitor
 - `allowed_origins` に Zabbix サーバのオリジンを含める（または内部利用なら `*`）
 
 ### 4. ダッシュボードにウィジェットを追加
+
+![ConfBridge Monitor 設定画面](docs/screenshot-settings.png)
 
 1. ダッシュボードを編集 → **Add widget** → **ConfBridge Monitor** を選択
 2. 設定を入力:

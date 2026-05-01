@@ -4,7 +4,7 @@
 
 A Zabbix 7.0+ custom widget that lets you listen to Asterisk ConfBridge audio directly in your browser — no SIP client, no WebRTC stack, no extra software required.
 
-![ConfBridge Monitor widget screenshot](docs/screenshot.png)
+![ConfBridge Monitor widget](docs/screenshot-player.png)
 
 ## Overview
 
@@ -55,6 +55,8 @@ Required settings:
 - `allowed_origins` includes your Zabbix server's origin (or `*` for internal use)
 
 ### 4. Add the widget to a dashboard
+
+![ConfBridge Monitor settings](docs/screenshot-settings.png)
 
 1. Edit a dashboard → **Add widget** → select **ConfBridge Monitor**
 2. Fill in:
