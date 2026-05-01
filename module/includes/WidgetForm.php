@@ -15,7 +15,7 @@ class WidgetForm extends CWidgetForm {
 		return $this
 			->addField(
 				(new CWidgetFieldTextBox('asterisk_host', _('Asterisk Host (browser)')))
-					->setDefault('192.168.11.31')
+					->setDefault('10.0.0.1')
 					->setFlags(CWidgetFieldTextBox::FLAG_NOT_EMPTY)
 			)
 			->addField(

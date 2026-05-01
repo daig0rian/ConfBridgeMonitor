@@ -1,5 +1,7 @@
 # Zabbix セットアップガイド
 
+> 🌐 [English version](zabbix-setup.md)
+
 検証環境: Zabbix 7.0 (nginx + PHP 8.0)
 
 ---
@@ -72,8 +74,8 @@ UPDATE module SET relative_path='modules/cbm_monitor' WHERE id='confbridge_monit
 
 | 項目 | 説明 | デフォルト |
 |------|------|-----------|
-| Asterisk Host (browser) | ブラウザが WebSocket 接続に使う Asterisk の IP アドレス | — |
-| Asterisk Host (server-side proxy) | Zabbix サーバの PHP が REST 呼び出しに使う Asterisk の IP アドレス。ブラウザから見たアドレスと同じ場合は空欄でよい | — |
+| Asterisk Host (browser) | ブラウザが WebSocket 接続に使う Asterisk の IP アドレス | `10.0.0.1` |
+| Asterisk Host (server-side proxy) | Zabbix サーバの PHP が REST 呼び出しに使う Asterisk の IP アドレス。ブラウザから見たアドレスと同じ場合は空欄でよい | *(Asterisk Host と同じ)* |
 | ARI Port | ARI HTTP ポート番号 | `8088` |
 | ARI Username | ARI ユーザ名 | `admin` |
 | ARI Password | ARI パスワード | — |

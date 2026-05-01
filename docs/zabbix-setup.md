@@ -1,5 +1,7 @@
 # Zabbix Setup Guide
 
+> 🌐 [日本語版はこちら](zabbix-setup.ja.md)
+
 Verified environment: Zabbix 7.0 (nginx + PHP 8.0)
 
 ---
@@ -72,8 +74,8 @@ UPDATE module SET relative_path='modules/cbm_monitor' WHERE id='confbridge_monit
 
 | Field | Description | Default |
 |-------|-------------|---------|
-| Asterisk Host (browser) | Address the browser uses for WebSocket connections to Asterisk | — |
-| Asterisk Host (server-side proxy) | Address the Zabbix server's PHP uses for REST calls to Asterisk. Leave blank if the same as the browser-facing address | — |
+| Asterisk Host (browser) | Address the browser uses for WebSocket connections to Asterisk | `10.0.0.1` |
+| Asterisk Host (server-side proxy) | Address the Zabbix server's PHP uses for REST calls to Asterisk. Leave blank if the same as the browser-facing address | *(same as browser)* |
 | ARI Port | ARI HTTP port | `8088` |
 | ARI Username | ARI username | `admin` |
 | ARI Password | ARI password | — |

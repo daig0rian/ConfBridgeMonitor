@@ -1,5 +1,7 @@
 # ConfBridge Monitor — Zabbix Widget
 
+> 🌐 [日本語版はこちら](README.ja.md)
+
 A Zabbix 7.0+ custom widget that lets you listen to Asterisk ConfBridge audio directly in your browser — no SIP client, no WebRTC stack, no extra software required.
 
 ![ConfBridge Monitor widget screenshot](docs/screenshot.png)

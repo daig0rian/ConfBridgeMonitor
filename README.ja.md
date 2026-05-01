@@ -1,5 +1,7 @@
 # ConfBridge Monitor — Zabbix ウィジェット
 
+> 🌐 [English version](README.md)
+
 Asterisk ConfBridge の音声を Zabbix ダッシュボード上でブラウザ再生できるカスタムウィジェット。SIP クライアント・WebRTC スタック・追加ソフトウェアは不要。
 
 ![ConfBridge Monitor ウィジェット](docs/screenshot.png)

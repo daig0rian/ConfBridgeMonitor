@@ -1,5 +1,7 @@
 # Asterisk / FreePBX Setup Guide
 
+> 🌐 [日本語版はこちら](asterisk-setup.ja.md)
+
 Verified environment: FreePBX 17 + Asterisk 22.8.2 (x86_64 Linux)
 
 ## Prerequisites

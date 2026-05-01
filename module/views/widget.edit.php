@@ -14,7 +14,8 @@ $form
 		new CWidgetFieldTextBoxView($data['fields']['asterisk_host'])
 	)
 	->addField(
-		new CWidgetFieldTextBoxView($data['fields']['asterisk_host_server'])
+		(new CWidgetFieldTextBoxView($data['fields']['asterisk_host_server']))
+			->setPlaceholder(_('same as Asterisk Host (browser)'))
 	)
 	->addField(
 		new CWidgetFieldIntegerBoxView($data['fields']['ari_port'])

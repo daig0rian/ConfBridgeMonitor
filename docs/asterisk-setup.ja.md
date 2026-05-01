@@ -1,5 +1,7 @@
 # Asterisk / FreePBX セットアップガイド
 
+> 🌐 [English version](asterisk-setup.md)
+
 検証環境: FreePBX 17 + Asterisk 22.8.2 (x86_64 Linux)
 
 ## 前提条件
