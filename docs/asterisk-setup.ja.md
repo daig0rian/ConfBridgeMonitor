@@ -41,7 +41,31 @@ ss -tlnp | grep 8088
 
 ---
 
-## 2. ARI (Asterisk REST Interface) 設定
+## 2. WebSocket トランスポートの有効化 (chan_pjsip)
+
+### 目的
+Asterisk 内蔵 HTTP サーバが WebSocket 接続を受け付けられるようにする。この設定がないと `chan_websocket` がブラウザからの WebSocket 接続を受け付けられない。
+
+### FreePBX GUI での手順
+**Settings > Asterisk SIP Settings > SIP Settings [chan_pjsip]**
+
+**Transport** セクションまでスクロールし、`ws` 行（0.0.0.0 / All）を見つけて有効化する:
+
+| トランスポート | アドレス | プロトコル | 有効 (変更前) | 有効 (変更後) |
+|--------------|---------|-----------|-------------|-------------|
+| `ws` | `0.0.0.0` | All | `No` | `Yes` |
+
+Submit → Apply Changes を実行する。
+
+### 確認
+```bash
+sudo asterisk -rx 'pjsip show transports'
+# 期待値: ws トランスポートの行が State: Available で表示される
+```
+
+---
+
+## 3. ARI (Asterisk REST Interface) 設定
 
 ### 目的
 ARI を有効化し、外部オリジンからの WebSocket 接続を許可する。
@@ -79,7 +103,7 @@ sudo asterisk -rx 'ari show status'
 
 ---
 
-## 3. ARI ユーザ設定
+## 4. ARI ユーザ設定
 
 ### 目的
 ブラウザウィジェットが ARI に認証するためのユーザを作成する。
@@ -121,7 +145,7 @@ http://192.168.x.x:8088/ari/
 
 ---
 
-## 4. ConfBridge 確認
+## 5. ConfBridge 確認
 
 ### 目的
 音声を受信する対象の ConfBridge が存在することを確認する。
@@ -139,7 +163,7 @@ sudo asterisk -rx 'confbridge list'
 
 ---
 
-## 5. 設定変更が不要な項目
+## 6. 設定変更が不要な項目
 
 以下は Asterisk 22.8.x + FreePBX 17 の標準状態で動作確認済み:
 
@@ -149,7 +173,7 @@ sudo asterisk -rx 'confbridge list'
 
 ---
 
-## 6. FreePBX カスタム設定ファイルについて
+## 7. FreePBX カスタム設定ファイルについて
 
 FreePBX が生成するファイル(`*_additional.conf`)は Apply Changes のたびに上書きされる。
 GUI で設定できない項目を追加する場合は `*_custom.conf` を使用すること:
@@ -167,7 +191,8 @@ GUI で設定できない項目を追加する場合は `*_custom.conf` を使�
 ## 設定完了チェックリスト
 
 - [ ] `ss -tlnp | grep 8088` で `0.0.0.0:8088` がリスン中
-- [ ] `sudo asterisk -rx 'ari show status'` で `Allowed Origins: 192.168.x.x:80` になっている
+- [ ] `sudo asterisk -rx 'pjsip show transports'` で `ws` トランスポートが `State: Available` で表示される
+- [ ] `sudo asterisk -rx 'ari show status'` で `Enabled: Yes` と `Allowed Origins: 192.168.x.x:80` が確認できる
 - [ ] ARI ユーザが `read_only=no` で作成済み
 - [ ] `confbridge list` でモニタ対象の Bridge が確認できる
 - [ ] `curl http://192.168.x.x:8088/ari/asterisk/info` でレスポンス確認
