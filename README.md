@@ -16,6 +16,20 @@ Operations teams that already use Zabbix dashboards can monitor Asterisk confere
 - Uses two separate WebSockets as required by Asterisk: one for ARI control events, one for media frames
 - REST calls (POST/DELETE) to Asterisk are proxied through a PHP action in the module — `fetch()` is subject to browser CORS enforcement, so direct cross-origin REST calls are blocked. WebSocket connections are not subject to CORS and go directly from the browser to Asterisk; origin validation is handled server-side by Asterisk's `allowed_origins` setting
 
+## Security Considerations
+
+> **This application is designed for use within a trusted, closed network only.**
+
+All three communication paths operate over plain HTTP with no encryption:
+
+| Path | Credentials transmitted |
+|------|------------------------|
+| Browser → Zabbix Server | ARI username/password (widget config over HTTP) |
+| Browser → Asterisk Server | ARI credentials embedded in WebSocket URL (`?api_key=user:pass`) |
+| Zabbix Server → Asterisk Server | ARI credentials via HTTP Basic Auth (PHP proxy curl) |
+
+Because credentials and audio data are transmitted in plaintext on every path, **all three parties — the operator's browser, the Zabbix server, and the Asterisk server — must reside within the same trusted network zone** (e.g., a closed LAN or private VLAN). Do not expose any of these services to the public internet.
+
 ## Requirements
 
 | Component | Version |
