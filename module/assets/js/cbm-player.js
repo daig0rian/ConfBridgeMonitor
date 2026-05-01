@@ -188,6 +188,7 @@ class ConfBridgePlayer {
 	}
 
 	// REST via Zabbix PHP proxy to avoid CORS
+	// (Asterisk ARI does not return Access-Control-Allow-Origin headers)
 	_proxyPost(path) {
 		return this._proxyRequest('POST', path);
 	}
